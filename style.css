@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #222;
+  background: #fff;
+}
+
+a {
+  color: #1a5276;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 860px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.profile {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 52px;
+}
+
+.profile img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.profile-info h1 {
+  font-size: 2rem;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.profile-info .position {
+  color: #555;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.profile-info .bio {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 16px;
+  max-width: 560px;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  color: #1a5276;
+}
+
+/* Sections */
+section {
+  margin-bottom: 48px;
+}
+
+section h2 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+/* Publications */
+.pub-list {
+  list-style: none;
+}
+
+.pub-list li {
+  margin-bottom: 16px;
+  font-size: 0.93rem;
+  padding-left: 20px;
+  position: relative;
+}
+
+.pub-list li::before {
+  content: counter(pub-counter) ".";
+  counter-increment: pub-counter;
+  position: absolute;
+  left: 0;
+  color: #888;
+}
+
+.pub-list {
+  counter-reset: pub-counter;
+}
+
+.pub-title {
+  font-style: italic;
+}
+
+.pub-venue {
+  color: #555;
+}
+
+.pub-links {
+  font-size: 0.85rem;
+}
+
+.pub-links a {
+  margin-right: 8px;
+  background: #eaf0fb;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* Research entries */
+.research-item {
+  margin-bottom: 20px;
+}
+
+.research-item .meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.research-item .org {
+  font-weight: bold;
+}
+
+.research-item .date {
+  color: #888;
+  font-size: 0.88rem;
+}
+
+.research-item .role {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.research-item p {
+  font-size: 0.92rem;
+  color: #333;
+  margin-top: 4px;
+}
+
+/* Education */
+.edu-item {
+  margin-bottom: 16px;
+}
+
+.edu-item .meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.edu-item .school {
+  font-weight: bold;
+}
+
+.edu-item .date {
+  color: #888;
+  font-size: 0.88rem;
+}
+
+.edu-item .degree {
+  color: #555;
+  font-size: 0.92rem;
+}
+
+.edu-item .note {
+  font-size: 0.88rem;
+  color: #666;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #aaa;
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 560px) {
+  .profile {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .profile img {
+    width: 120px;
+    height: 120px;
+  }
+}
