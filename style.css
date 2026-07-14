@@ -227,6 +227,29 @@ section h2 {
   color: #666;
 }
 
+/* Service */
+.service-list {
+  list-style: none;
+}
+
+.service-list li {
+  margin-bottom: 10px;
+  font-size: 0.93rem;
+  padding-left: 16px;
+  position: relative;
+}
+
+.service-list li::before {
+  content: "\2022";
+  position: absolute;
+  left: 0;
+  color: #888;
+}
+
+.service-label {
+  font-weight: bold;
+}
+
 footer {
   text-align: center;
   font-size: 0.82rem;
