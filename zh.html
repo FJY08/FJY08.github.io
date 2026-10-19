@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="0ChBe5ir7UnDxiI_qEI0P0M8Q7s19YpTejGyfD4wSks" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Junyu Fan 的个人学术主页。研究兴趣包括生成流网络（GFlowNets）、量子纠错，以及面向科学难题的计算方法。" />
+  <link rel="canonical" href="https://fjy08.github.io/zh.html" />
+  <link rel="alternate" hreflang="en" href="https://fjy08.github.io/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://fjy08.github.io/zh.html" />
+  <title>Junyu Fan</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Schibsted+Grotesk:wght@400..800&display=swap" />
+
+  <!-- Apply a saved theme before first paint to avoid a flash -->
+  <script>
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  </script>
+
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --paper: #F7F4EF;
+      --ink: #302623;
+      --muted: #75675D;
+      --line: #CABEAF;
+      --accent: #A64C3B;
+      --accent-strong: #6B3B32;
+      --on-accent: #FFFFFF;
+      --jade: #8FBFB0;
+      --jade-text: #315C50;
+      --on-jade: #203C33;
+      --sand: #B78F68;
+      --serif: "Literata", "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+      --sans: "Schibsted Grotesk", system-ui, "Microsoft YaHei", "PingFang SC", sans-serif;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #201D1A;
+        --ink: #EEE8DF;
+        --muted: #CABEAF;
+        --line: #57463D;
+        --accent: #D98673;
+        --accent-strong: #ECB09D;
+        --on-accent: #21140E;
+        --jade-text: #8FBFB0;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: #201D1A;
+      --ink: #EEE8DF;
+      --muted: #CABEAF;
+      --line: #57463D;
+      --accent: #D98673;
+      --accent-strong: #ECB09D;
+      --on-accent: #21140E;
+      --jade-text: #8FBFB0;
+      color-scheme: dark;
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 1.0625rem/1.65 var(--serif);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+    a:hover { color: var(--accent-strong); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+    .skip { position: absolute; left: -999px; top: 0.5rem; background: var(--paper); padding: 0.5rem 0.9rem; z-index: 20; font-family: var(--sans); }
+    .skip:focus { left: 0.5rem; }
+    .wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; }
+    #top, .section { scroll-margin-top: 4.25rem; }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--paper) 88%, transparent);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; height: 3.5rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      font-family: var(--sans); font-size: 0.92rem;
+    }
+    .brand { font-weight: 650; color: var(--ink); text-decoration: none; white-space: nowrap; }
+    .brand:hover { color: var(--ink); }
+    .topnav { display: flex; gap: 1.25rem; margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+    .topnav::-webkit-scrollbar { display: none; }
+    .topnav a { color: var(--muted); text-decoration: none; padding: 0.25rem 0; white-space: nowrap; }
+    .topnav a:hover { color: var(--ink); }
+    .theme-btn {
+      flex-shrink: 0; font: inherit; color: var(--muted); background: none;
+      border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.8rem; cursor: pointer;
+    }
+    .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
+    .language-link {
+      flex-shrink: 0; color: var(--muted); text-decoration: none; white-space: nowrap;
+      border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.8rem;
+    }
+    .language-link:hover { color: var(--ink); border-color: var(--accent); }
+    @media (max-width: 640px) {
+      .brand { display: none; }
+      .topbar-inner { gap: 0.65rem; padding: 0 1rem; font-size: 0.85rem; }
+      .topnav { gap: 0.9rem; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: grid; grid-template-columns: minmax(0, 1fr) 14rem; gap: 3rem;
+      align-items: start; padding: 3.5rem 0 2.25rem;
+    }
+    .hero h1 {
+      margin: 0 0 0.9rem; font-family: var(--serif); font-weight: 600;
+      font-size: clamp(2.7rem, 6.5vw, 4.5rem); line-height: 1.02; letter-spacing: -0.025em;
+    }
+    .position { margin: 0 0 1.4rem; max-width: 34rem; font: 400 1.02rem/1.45 var(--sans); color: var(--muted); }
+    .bio { margin: 0 0 1.6rem; max-width: 40rem; }
+    .photo img {
+      display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+      border-radius: 6px; background: var(--line);
+    }
+    .links { display: flex; flex-wrap: wrap; gap: 0.6rem; font: 500 0.92rem/1 var(--sans); }
+    .links a {
+      display: inline-flex; align-items: center; padding: 0.6rem 1rem;
+      border: 1px solid var(--line); border-radius: 999px; color: var(--ink); text-decoration: none;
+    }
+    .links a:hover { border-color: var(--accent); color: var(--accent); }
+    .links a.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+    .links a.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--on-accent); }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 2rem; }
+      .photo { order: -1; width: 8.5rem; }
+    }
+
+    /* ---------- Sections ---------- */
+    .section {
+      display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 1.5rem 2.5rem;
+      padding: 2.75rem 0; border-top: 1px solid var(--line);
+    }
+    .section > h2 { margin: 0; font: 650 0.98rem/1.7 var(--sans); letter-spacing: 0.005em; }
+    .section-body { max-width: 44rem; }
+    @media (max-width: 760px) { .section { grid-template-columns: 1fr; gap: 1rem; padding: 2.25rem 0; } }
+
+    /* Research */
+    .topics { display: grid; gap: 1.9rem; }
+    .topic h3 { margin: 0 0 0.3rem; font: 600 1.2rem/1.3 var(--serif); }
+    .status {
+      margin-left: 0.6rem; padding: 0.1rem 0.55rem; border: 1px solid var(--jade); border-radius: 999px;
+      background: color-mix(in srgb, var(--jade) 14%, var(--paper));
+      font: 500 0.78rem/1.4 var(--sans); color: var(--jade-text); vertical-align: 0.12em;
+    }
+    .topic p { margin: 0 0 0.45rem; }
+    .topic .more { font: 500 0.9rem/1.4 var(--sans); }
+
+    /* Publications */
+    .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.6rem; }
+    .chip {
+      font: 500 0.85rem/1 var(--sans); padding: 0.55rem 0.9rem; border-radius: 999px;
+      border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .chip[aria-pressed="true"] { background: var(--jade); border-color: var(--jade); color: var(--on-jade); }
+    .pub-count { margin: 0 0 1.25rem; font: 400 0.85rem/1.5 var(--sans); color: var(--muted); }
+    .year-group { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: 1rem; padding: 1.2rem 0; border-top: 1px solid var(--line); }
+    .year { margin: 0; font: 600 0.95rem/1.7 var(--sans); color: var(--muted); }
+    .pubs { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; }
+    .pub p { margin: 0; }
+    .pub-title { font-weight: 600; line-height: 1.4; }
+    .pub-authors { font-size: 0.95rem; color: var(--muted); margin-top: 0.15rem !important; }
+    .pub-authors strong { color: var(--ink); font-weight: 650; }
+    .pub-venue { font-size: 0.95rem; }
+    .pub-links { display: flex; gap: 0.9rem; margin-top: 0.35rem !important; font: 500 0.85rem/1.4 var(--sans); }
+    @media (max-width: 480px) { .year-group { grid-template-columns: 1fr; gap: 0.25rem; } }
+
+    /* Education timeline (a real sequence, so it gets a rail) */
+    .timeline { list-style: none; margin: 0; padding: 0 0 0 1.4rem; border-left: 1px solid var(--line); }
+    .timeline li { position: relative; padding-bottom: 1.7rem; }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline li::before {
+      content: ""; position: absolute; left: calc(-1.4rem - 5px); top: 0.5rem;
+      width: 9px; height: 9px; border-radius: 50%; background: var(--sand);
+    }
+    .timeline .date { display: block; font: 400 0.88rem/1.6 var(--sans); color: var(--muted); }
+    .timeline .school { display: block; font-weight: 600; }
+    .timeline .degree { display: block; }
+    .timeline .advisor { display: block; font-size: 0.95rem; color: var(--muted); }
+
+    /* Service */
+    .service { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
+    .service strong { display: block; margin-bottom: 0.1rem; font: 600 0.95rem/1.6 var(--sans); }
+
+    /* Vision */
+    .vision-more { margin: 0 0 1rem; }
+
+    /* Footer */
+    .footer { padding: 1.5rem 0 3rem; border-top: 1px solid var(--line); font: 400 0.85rem/1.6 var(--sans); color: var(--muted); }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">跳转到正文</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Junyu Fan</a>
+    <nav class="topnav" aria-label="页面导航">
+      <a href="#research">研究方向</a>
+      <a href="#publications">论文</a>
+      <a href="#education">教育背景</a>
+      <a href="#service">学术服务</a>
+      <a href="#vision">愿景</a>
+    </nav>
+    <a class="language-link" href="index.html" lang="en" hreflang="en" aria-label="切换到英文">English</a>
+    <button class="theme-btn" id="theme-toggle" type="button">深色</button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <!-- Hero -->
+  <div class="hero" id="top">
+    <div class="hero-text">
+      <h1>Junyu Fan</h1>
+      <p class="position">MBZUAI 机器学习博士生</p>
+      <p class="bio">
+        我的博士导师是 <a href="https://lahlou.org/" target="_blank" rel="noopener noreferrer">Salem Lahlou</a>。
+        我关注如何为困难而重要的问题寻找有效的计算范式：无论是设计更好的算法、利用物理规律，还是探索尚未被想象的方法。
+        目前的研究聚焦于生成流网络（GFlowNets）。
+        此前，我在代尔夫特理工大学获得应用物理学硕士学位（<em>cum laude</em>，优等毕业），在复旦大学获得核工程专业工学学士学位。
+      </p>
+      <div class="links">
+        <a href="mailto:fzhjerry@gmail.com">个人邮箱</a>
+        <a class="primary" href="mailto:Junyu.Fan@mbzuai.ac.ae">MBZUAI 邮箱</a>
+        <a href="https://scholar.google.com/citations?user=SS9oXGwAAAAJ" target="_blank" rel="noopener noreferrer">谷歌学术</a>
+        <a href="https://github.com/FJY08" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="contents/photo.jpg?v=f441483" alt="Junyu Fan" />
+    </div>
+  </div>
+
+  <!-- Research -->
+  <section class="section" id="research" aria-labelledby="h-research">
+    <h2 id="h-research">研究方向</h2>
+    <div class="section-body topics">
+      <div class="topic">
+        <h3>生成流网络（GFlowNets）<span class="status">目前</span></h3>
+      </div>
+      <div class="topic">
+        <h3>量子纠错 <span class="status">硕士阶段</span></h3>
+      </div>
+      <div class="topic">
+        <h3>原子物理 <span class="status">本科阶段</span></h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section class="section" id="publications" aria-labelledby="h-pubs">
+    <h2 id="h-pubs">论文</h2>
+    <div class="section-body">
+      <div class="filters" role="group" aria-label="按研究方向筛选论文">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">全部</button>
+        <button class="chip" type="button" data-filter="qec" aria-pressed="false">量子纠错</button>
+        <button class="chip" type="button" data-filter="sim" aria-pressed="false">量子模拟</button>
+        <button class="chip" type="button" data-filter="atomic" aria-pressed="false">原子物理</button>
+      </div>
+      <p class="pub-count" id="pub-count" aria-live="polite">共 7 篇论文</p>
+
+      <div class="year-group">
+        <h3 class="year">2026</h3>
+        <ul class="pubs">
+          <li class="pub" data-tags="qec">
+            <p class="pub-title">Biased-noise thresholds of zero-rate holographic codes with tensor-network decoding</p>
+            <p class="pub-authors"><strong>J. Fan</strong>, M. Steinberg, A. Jahn, C. Cao, and S. Feld.</p>
+            <p class="pub-venue"><em>Physical Review A</em>, 114:012447, 2026.</p>
+            <p class="pub-links"><a href="https://doi.org/10.1103/rcxg-x3hy" target="_blank" rel="noopener noreferrer">期刊</a></p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="year-group">
+        <h3 class="year">2025</h3>
+        <ul class="pubs">
+          <li class="pub" data-tags="qec">
+            <p class="pub-title">Universal fault-tolerant logic with heterogeneous holographic codes</p>
+            <p class="pub-authors">M. Steinberg, <strong>J. Fan</strong>, J. Eisert, S. Feld, A. Jahn, and C. Cao.</p>
+            <p class="pub-venue">TQC 2025 海报展示。arXiv:2504.10386, 2025.</p>
+            <p class="pub-links"><a href="https://arxiv.org/abs/2504.10386" target="_blank" rel="noopener noreferrer">arXiv</a></p>
+          </li>
+          <li class="pub" data-tags="sim">
+            <p class="pub-title">Exponentially decaying quantum simulation error with noisy devices</p>
+            <p class="pub-authors">J. Xu, C. Zhao, <strong>J. Fan</strong>, and Q. Zhao.</p>
+            <p class="pub-venue">arXiv:2504.10247, 2025.</p>
+            <p class="pub-links"><a href="https://arxiv.org/abs/2504.10247" target="_blank" rel="noopener noreferrer">arXiv</a></p>
+          </li>
+          <li class="pub" data-tags="qec">
+            <p class="pub-title">Far from perfect: Quantum error correction with (hyperinvariant) evenbly codes</p>
+            <p class="pub-authors">M. Steinberg, <strong>J. Fan</strong>, R. J. Harris, D. Elkouss, S. Feld, and A. Jahn.</p>
+            <p class="pub-venue"><em>Quantum</em>, 9:1826, 2025.</p>
+            <p class="pub-links"><a href="https://doi.org/10.22331/q-2025-08-08-1826" target="_blank" rel="noopener noreferrer">期刊</a></p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="year-group">
+        <h3 class="year">2024</h3>
+        <ul class="pubs">
+          <li class="pub" data-tags="qec">
+            <p class="pub-title">LEGO HQEC: A software tool for analyzing holographic quantum codes</p>
+            <p class="pub-authors"><strong>J. Fan</strong>, M. Steinberg, A. Jahn, C. Cao, A. Sarkar, and S. Feld.</p>
+            <p class="pub-venue">arXiv:2410.22861, 2024.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2410.22861" target="_blank" rel="noopener noreferrer">arXiv</a>
+              <a href="https://github.com/QML-Group/HQEC" target="_blank" rel="noopener noreferrer">代码</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="year-group">
+        <h3 class="year">2022</h3>
+        <ul class="pubs">
+          <li class="pub" data-tags="atomic">
+            <p class="pub-title">Optical lines of Ru<sup>21+</sup> to Ru<sup>24+</sup> ions</p>
+            <p class="pub-authors"><strong>J. Fan</strong>, Z. Jiang, Y. Qian, J. Liu, P. Xu, L. Huang, Z. He, Y. Zou, J. Li, C. Chen, et al.</p>
+            <p class="pub-venue"><em>Atoms</em>, 10(4):154, 2022.</p>
+            <p class="pub-links"><a href="https://doi.org/10.3390/atoms10040154" target="_blank" rel="noopener noreferrer">期刊</a></p>
+          </li>
+          <li class="pub" data-tags="atomic">
+            <p class="pub-title">Precise wavelength determination of the 4s<sup>2</sup>4p <sup>2</sup>P<sub>3/2</sub>&ndash;<sup>2</sup>P<sub>1/2</sub> transition in Mo<sup>11+</sup> and Ru<sup>13+</sup> ions</p>
+            <p class="pub-authors">Y. Li, Y. Wang, <strong>J. Fan</strong>, R. Si, J. Li, M. Zhang, L. Huang, J. Xiao, Y. Zou, B. Wei, et al.</p>
+            <p class="pub-venue"><em>Journal of Physics B</em>, 54(23):235001, 2022.</p>
+            <p class="pub-links"><a href="https://doi.org/10.1088/1361-6455/ac43f4" target="_blank" rel="noopener noreferrer">期刊</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section" id="education" aria-labelledby="h-edu">
+    <h2 id="h-edu">教育背景</h2>
+    <div class="section-body">
+      <ol class="timeline">
+        <li>
+          <span class="date">2026 年秋季 &ndash; 至今</span>
+          <span class="school">MBZUAI</span>
+          <span class="degree">机器学习博士在读，阿联酋阿布扎比</span>
+          <span class="advisor">导师：<a href="https://lahlou.org/" target="_blank" rel="noopener noreferrer">Salem Lahlou</a></span>
+        </li>
+        <li>
+          <span class="date">2022 年 9 月 &ndash; 2024 年 9 月</span>
+          <span class="school">代尔夫特理工大学（TU Delft）</span>
+          <span class="degree">应用物理学硕士，荷兰代尔夫特</span>
+          <span class="advisor">导师：<a href="https://www.sebastianfeld.de/" target="_blank" rel="noopener noreferrer">Sebastian Feld</a></span>
+        </li>
+        <li>
+          <span class="date">2018 年 9 月 &ndash; 2022 年 6 月</span>
+          <span class="school">复旦大学</span>
+          <span class="degree">核工程与核技术专业工学学士，中国上海</span>
+          <span class="advisor">导师：<a href="https://www.researchgate.net/profile/Ke-Yao-4" target="_blank" rel="noopener noreferrer">Ke Yao</a></span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Service -->
+  <section class="section" id="service" aria-labelledby="h-service">
+    <h2 id="h-service">学术服务</h2>
+    <div class="section-body">
+      <ul class="service">
+        <li>
+          <strong>期刊审稿</strong>
+          <em>Physical Review A</em>, <em>Physical Review Research</em> (APS); <em>Journal of Physics A</em> (IOP)
+        </li>
+        <li>
+          <strong>会议服务</strong>
+          IEEE Quantum Week（QCE）2026 Birds-of-a-Feather 提案程序委员会成员；IEEE Quantum Week（QCE）2026 和亚洲量子信息科学会议（AQIS）2025 外部审稿人
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="section" id="vision" aria-labelledby="h-vision">
+    <h2 id="h-vision">愿景</h2>
+    <div class="section-body">
+      <p class="vision-more">我始终相信，对我来说最有价值的工作，是把科幻变成现实。这并非为了炫技，而是因为那些曾经看似不可能的事情，往往最能改善人们的生活，<strong>也最能替我们抵挡一部分生活的荒诞</strong>。</p>
+      <p class="vision-more">当然，这离不开社会科学家以及每一个人的努力，去确保这些技术真正服务于人类的繁荣，而不是相反。</p>
+      <p class="vision-more">与此同时，我也由衷地好奇维格纳之问：为什么宇宙能被数学描述得如此“好得不讲道理”？更具体地说，我们的宇宙究竟与什么样的数学结构同构？</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap footer">
+  &copy; 2026 Junyu Fan &middot; 最后更新于 2026 年 10 月
+</footer>
+
+<script>
+(function () {
+  var languageLink = document.querySelector('.language-link');
+  languageLink.addEventListener('click', function () {
+    languageLink.href = languageLink.getAttribute('href').split('#')[0] + window.location.hash;
+  });
+
+  /* ---------- Theme toggle ---------- */
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    return t ? t === 'dark' : mq.matches;
+  }
+  function syncLabel() {
+    btn.textContent = isDark() ? '浅色' : '深色';
+    btn.setAttribute('aria-label', isDark() ? '切换到浅色主题' : '切换到深色主题');
+  }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    syncLabel();
+  });
+  if (mq.addEventListener) mq.addEventListener('change', syncLabel);
+  syncLabel();
+
+  /* ---------- Publication filter ---------- */
+  var chips = document.querySelectorAll('.chip');
+  var pubs = document.querySelectorAll('.pub');
+  var groups = document.querySelectorAll('.year-group');
+  var count = document.getElementById('pub-count');
+  function applyFilter(tag) {
+    var shown = 0;
+    chips.forEach(function (c) {
+      c.setAttribute('aria-pressed', c.getAttribute('data-filter') === tag ? 'true' : 'false');
+    });
+    pubs.forEach(function (p) {
+      var match = tag === 'all' || p.getAttribute('data-tags').split(' ').indexOf(tag) !== -1;
+      p.hidden = !match;
+      if (match) shown++;
+    });
+    groups.forEach(function (g) { g.hidden = !g.querySelector('.pub:not([hidden])'); });
+    count.textContent = shown === pubs.length ? '共 ' + pubs.length + ' 篇论文' : '显示 ' + shown + ' / ' + pubs.length + ' 篇论文';
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () { applyFilter(c.getAttribute('data-filter')); });
+  });
+  document.querySelectorAll('[data-filter-link]').forEach(function (a) {
+    a.addEventListener('click', function () { applyFilter(a.getAttribute('data-filter-link')); });
+  });
+
+})();
+</script>
+</body>
+</html>

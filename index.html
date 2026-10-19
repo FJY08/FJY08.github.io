@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Junyu Fan's academic homepage. Research interests include GFlowNets, quantum error correction, and computational methods for intractable scientific problems." />
   <link rel="canonical" href="https://fjy08.github.io/" />
+  <link rel="alternate" hreflang="en" href="https://fjy08.github.io/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://fjy08.github.io/zh.html" />
   <title>Junyu Fan</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -96,7 +98,7 @@
     }
     .brand { font-weight: 650; color: var(--ink); text-decoration: none; white-space: nowrap; }
     .brand:hover { color: var(--ink); }
-    .topnav { display: flex; gap: 1.25rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+    .topnav { display: flex; gap: 1.25rem; margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
     .topnav::-webkit-scrollbar { display: none; }
     .topnav a { color: var(--muted); text-decoration: none; padding: 0.25rem 0; white-space: nowrap; }
     .topnav a:hover { color: var(--ink); }
@@ -105,7 +107,16 @@
       border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.8rem; cursor: pointer;
     }
     .theme-btn:hover { color: var(--ink); border-color: var(--accent); }
-    @media (max-width: 640px) { .brand { display: none; } }
+    .language-link {
+      flex-shrink: 0; color: var(--muted); text-decoration: none; white-space: nowrap;
+      border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.8rem;
+    }
+    .language-link:hover { color: var(--ink); border-color: var(--accent); }
+    @media (max-width: 640px) {
+      .brand { display: none; }
+      .topbar-inner { gap: 0.65rem; padding: 0 1rem; font-size: 0.85rem; }
+      .topnav { gap: 0.9rem; }
+    }
 
     /* ---------- Hero ---------- */
     .hero {
@@ -212,6 +223,7 @@
       <a href="#service">Service</a>
       <a href="#vision">Vision</a>
     </nav>
+    <a class="language-link" href="zh.html" lang="zh-CN" hreflang="zh-CN" aria-label="Switch to Chinese">中文</a>
     <button class="theme-btn" id="theme-toggle" type="button">Dark</button>
   </div>
 </header>
@@ -389,9 +401,9 @@
   <section class="section" id="vision" aria-labelledby="h-vision">
     <h2 id="h-vision">Vision</h2>
     <div class="section-body">
-      <p class="vision-more">I believe the most worthwhile work turns science fiction into reality, not for its own sake, but because the things that once seemed impossible tend to be the ones that most improve people's lives.</p>
-      <p class="vision-more">Of course, that requires the efforts of social scientists and everyone else to ensure these technologies genuinely serve human flourishing rather than undermine it.</p>
-      <p class="vision-more">Alongside that, I find myself genuinely curious about Wigner's question: why is the universe so unreasonably well-described by mathematics, and more specifically, what mathematical structure our universe is isomorphic to.</p>
+      <p class="vision-more">I have always believed that, for me, the most meaningful work is to turn science fiction into reality. I am drawn to it not for displays of technical virtuosity, but because what once seemed impossible can often do the most to improve people's lives, <strong>and offer people some shelter from life's absurdity</strong>.</p>
+      <p class="vision-more">This, of course, depends on the efforts of social scientists and of each of us, to ensure that these technologies serve human flourishing rather than work against it.</p>
+      <p class="vision-more">At the same time, I remain deeply curious about Wigner's question: why does mathematics describe the universe with such unreasonable effectiveness? More specifically, to what mathematical structure is our universe isomorphic?</p>
     </div>
   </section>
 
@@ -403,6 +415,11 @@
 
 <script>
 (function () {
+  var languageLink = document.querySelector('.language-link');
+  languageLink.addEventListener('click', function () {
+    languageLink.href = languageLink.getAttribute('href').split('#')[0] + window.location.hash;
+  });
+
   /* ---------- Theme toggle ---------- */
   var root = document.documentElement;
   var btn = document.getElementById('theme-toggle');
